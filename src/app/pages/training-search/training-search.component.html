@@ -1,0 +1,76 @@
+<mat-card>
+    <mat-card-content>
+        <form class="searchBar">
+            <mat-form-field>
+                <mat-select placeholder="Technology">
+                    <mat-option *ngFor="let tech of techs" [value]="tech.value">
+                        {{tech.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <div class="time-picker-wrap">From: </div>
+    <mat-form-field>
+        <input matInput [matDatepicker]="startDate" placeholder="Choose start date">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field> -->
+            <mat-form-field>
+                <mat-select placeholder="Choose start time">
+                    <mat-option *ngFor="let time of times" [value]="time.value">
+                        {{time.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <div class="time-picker-wrap">To: </div>
+    <mat-form-field>
+        <input matInput [matDatepicker]="endDate" placeholder="Choose end date">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field> -->
+            <mat-form-field>
+                <mat-select placeholder="Choose end time">
+                    <mat-option *ngFor="let time of times" [value]="time.value">
+                        {{time.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="time-picker-wrap"><button mat-raised-button color="primary" type="submit">Search</button></div>
+        </form>
+
+        <div class="search-result">
+            <!-- <p class="title">Search Results for 'Spring Boot' Training</p> -->
+            <div class="search-list">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Trainer Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rating">
+                        <th mat-header-cell *matHeaderCellDef> Avg Rating </th>
+                        <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="completed">
+                        <th mat-header-cell *matHeaderCellDef> Completed </th>
+                        <td mat-cell *matCellDef="let element"> {{element.completed}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="userId">
+                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let element"> <a mat-raised-button
+                                (click)="openDialog(element)">Propose Now</a> </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,20 @@
+<form class="form-container">
+    <h1 mat-dialog-title>Hi {{data.name}}</h1>
+    <div mat-dialog-content>
+        <p>Please input you propose request?</p>
+        <div class="dialog-container">
+            <mat-form-field>
+                <input matInput placeholder="Input" [(ngModel)]="data.userId">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea matInput placeholder="Description"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Submit</button>
+    </div>
+</form>

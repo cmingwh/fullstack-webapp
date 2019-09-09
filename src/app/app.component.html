@@ -1,0 +1,24 @@
+<h1>Training WebSite</h1>
+
+<mat-toolbar>
+    <a mat-button routerLink="login">Login</a>
+    <a mat-button routerLink="signup">Signup</a>
+    <a mat-button routerLink="search">Search</a>
+    <a mat-button routerLink="userTrainings">Trainee Home</a>
+    <a mat-button routerLink="mentorTrainings">Mentor Home</a>
+    <a mat-button routerLink="profile">Profile</a>
+    <a mat-button routerLink="admin/user">Admin - User</a>
+    <a mat-button routerLink="admin/tech">Admin - Technology/Fee Frequency</a>
+</mat-toolbar>
+<hr>
+<div class="container">
+    <div [hidden]="!authenticated()">
+        <p>The ID is {{greeting.id}}</p>
+        <p>The content is {{greeting.content}}</p>
+    </div>
+    <div [hidden]="authenticated()">
+        <p>Login to see your greeting</p>
+    </div>
+</div>
+<hr>
+<router-outlet></router-outlet>
