@@ -1,23 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from './service/app.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { AuthService } from './service/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'myapp';
-  greeting = {};
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    // this.app.authenticate(undefined, undefined);
+  userName;
+  greeting;
+  signupSuccess = false;
+  userExists = false;
+  signupFailed = false;
+
+  constructor(private app: AppService, private auth: AuthService, private http: HttpClient,
+              private router: Router, private activatedRoute: ActivatedRoute) {
   }
-  logout() {
-    this.http.post('logout', {}).subscribe(() => {
-      this.app.authenticated = false;
-      this.router.navigateByUrl('/login');
+
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const signupResult = params.signup;
+      if (signupResult === 'success') {
+        this.signupSuccess = true;
+      }
+      if (signupResult === 'exists') {
+        this.userExists = true;
+      }
+      if (signupResult === 'failed') {
+        this.signupFailed = true;
+      }
     });
+
+    if (this.auth.isLogin()) {
+      this.userName = localStorage.getItem('userName');
+      this.app.greeting().subscribe(
+        res => this.greeting = res,
+        error => {
+          this.greeting = error;
+        }
+      );
+    } else {
+      // this.router.navigate(['login']);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('tokenPayload');
+    localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
+  }
+
+  authenticated() {
+    return this.auth.isLogin();
   }
 }

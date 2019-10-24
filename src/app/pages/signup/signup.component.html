@@ -1,31 +1,61 @@
-<form class="form-container">
+<form class="form-container" role="form" (submit)="signup()">
     <mat-card>
         <mat-card-content>
             <p class="h4">Create Account</p>
             <mat-form-field class="form-full-width">
-                <!-- First name -->
-                <input type="text" id="firstName" matInput placeholder="First name">
+                <!-- Last name -->
+                <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" matInput placeholder="User name/ User ID/ Email">
                 <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
             <mat-form-field class="form-full-width">
                 <!-- Last name -->
-                <input type="text" id="lastName" matInput placeholder="Last name">
+                <input type="text" id="firstName" name="firstName" [(ngModel)]="user.firstName" matInput placeholder="First name">
                 <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
-            <!-- E-mail -->
             <mat-form-field class="form-full-width">
-                <input type="email" id="username" matInput placeholder="E-mail">
+                <!-- Last name -->
+                <input type="text" id="lastName" name="lastName" [(ngModel)]="user.lastName" matInput placeholder="Last name">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-full-width">
+                <!-- Last name -->
+                <input type="text" id="contactNumber" name="contactNumber" [(ngModel)]="user.contactNumber" matInput placeholder="Contact number">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-full-width">
+                <!-- Last name -->
+                <input type="text" id="linedinUrl" name="linedinUrl" [(ngModel)]="user.linedinUrl" matInput placeholder="linedin Url">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-full-width">
+                <!-- Last name -->
+                <input type="number" id="yearsOfExperience" name="yearsOfExperience" [(ngModel)]="user.yearsOfExperience" matInput placeholder="Years Of Experience">
                 <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
             <mat-form-field class="form-full-width">
                 <!-- Password -->
-                <input type="password" id="password" matInput placeholder="Password"
+                <input type="password" id="password" name="password" [(ngModel)]="user.password" matInput placeholder="Password"
                     aria-describedby="defaultRegisterFormPasswordHelpBlock">
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted">
                     At least 8 characters and 1 digit
                 </small>
             </mat-form-field>
+            <mat-form-field class="form-full-width">
+                <!-- Password -->
+                <input type="password" id="repassword" matInput placeholder="Confirm Password"
+                    aria-describedby="repasswordValidation">
+                <small id="repasswordValidation" class="form-text text-muted">
+                    Please confirm re enter same password to confirm.
+                </small>
+            </mat-form-field>
+            <!-- <mat-form-field class="form-full-width">
+                <mat-select placeholder="Choose a Role" id="role" name="role" [(ngModel)]="user.role">
+                    <mat-option *ngFor="let role of roles" [value]="role.value">
+                        {{role.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
             <p>
                 <!-- Sign up button -->
                 <button mat-raised-button color="primary" type="submit">Sign Up Now</button>

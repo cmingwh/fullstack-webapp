@@ -1,15 +1,17 @@
 import { BrowserModule, } from '@angular/platform-browser';
-import { NgModule, Injectable,  } from '@angular/core';
+import { NgModule, Injectable, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule,
-MatSelectModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule, MatTableModule,
-MatPaginatorModule, MatDialogModule, MatTabsModule, MatListModule, MatIconModule} from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule,
+  MatSelectModule, MatOptionModule, MatDatepickerModule, MatNativeDateModule, MatTableModule,
+  MatPaginatorModule, MatDialogModule, MatTabsModule, MatListModule, MatIconModule
+} from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { TrainingSearchComponent } from './pages/training-search/training-search.component';
 import { MentorTrainingsComponent } from './pages/mentor-trainings/mentor-trainings.component';
 import { UserTrainingsComponent } from './pages/user-trainings/user-trainings.component';
@@ -20,18 +22,35 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SkillsComponent } from './pages/skills/skills.component';
 import { AdminUserComponent } from './pages/admin-user/admin-user.component';
 import { AdminTechFeeComponent } from './pages/admin-tech-fee/admin-tech-fee.component';
-import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHeaders, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppService } from './service/app.service';
-import { HomeComponent } from './pages/home/home.component';
+import { AuthService } from './service/auth.service';
+import { AuthGuard } from './service/auth.guard';
+import { MentorCalendarComponent } from './component/mentor-calendar/mentor-calendar.component';
+import { MentorSkillsComponent } from './component/mentor-skills/mentor-skills.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
+    // HttpHeader object immutable - copy values
+    const headerSettings: { [name: string]: string | string[]; } = {};
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const xhr = req.clone({
-      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    for (const key of request.headers.keys()) {
+      headerSettings[key] = request.headers.getAll(key);
+    }
+
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      headerSettings.Authorization = 'Bearer ' + token;
+    }
+    headerSettings['Content-Type'] = 'application/json';
+    headerSettings['X-Requested-With'] = 'XMLHttpRequest';
+    const newHeader = new HttpHeaders(headerSettings);
+
+    const changedRequest = request.clone({
+      headers: newHeader
     });
-    return next.handle(xhr);
+    return next.handle(changedRequest);
   }
 }
 
@@ -50,7 +69,8 @@ export class XhrInterceptor implements HttpInterceptor {
     SkillsComponent,
     AdminUserComponent,
     AdminTechFeeComponent,
-    HomeComponent
+    MentorCalendarComponent,
+    MentorSkillsComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +105,7 @@ export class XhrInterceptor implements HttpInterceptor {
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

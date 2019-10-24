@@ -1,39 +1,8 @@
 <mat-card>
     <mat-card-content>
         <form class="searchBar">
-            <mat-form-field>
-                <mat-select placeholder="Technology">
-                    <mat-option *ngFor="let tech of techs" [value]="tech.value">
-                        {{tech.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <!-- <div class="time-picker-wrap">From: </div>
-    <mat-form-field>
-        <input matInput [matDatepicker]="startDate" placeholder="Choose start date">
-        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-        <mat-datepicker #startDate></mat-datepicker>
-    </mat-form-field> -->
-            <mat-form-field>
-                <mat-select placeholder="Choose start time">
-                    <mat-option *ngFor="let time of times" [value]="time.value">
-                        {{time.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <!-- <div class="time-picker-wrap">To: </div>
-    <mat-form-field>
-        <input matInput [matDatepicker]="endDate" placeholder="Choose end date">
-        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-        <mat-datepicker #endDate></mat-datepicker>
-    </mat-form-field> -->
-            <mat-form-field>
-                <mat-select placeholder="Choose end time">
-                    <mat-option *ngFor="let time of times" [value]="time.value">
-                        {{time.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <app-mentor-skills></app-mentor-skills>
+            <app-mentor-calendar></app-mentor-calendar>
             <div class="time-picker-wrap"><button mat-raised-button color="primary" type="submit">Search</button></div>
         </form>
 

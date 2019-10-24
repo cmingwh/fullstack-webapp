@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
   }
   logout() {
     this.http.post('logout', {}).pipe(finalize(() => {
-      this.app.authenticated = false;
+      localStorage.removeItem('tokenPayload');
+      localStorage.removeItem('access_token');
       this.router.navigateByUrl('/login');
     })).subscribe();
   }
