@@ -1,6 +1,6 @@
 import { BrowserModule, } from '@angular/platform-browser';
 import { NgModule, Injectable, } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -76,6 +76,7 @@ export class XhrInterceptor implements HttpInterceptor {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,

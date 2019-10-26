@@ -3,6 +3,7 @@ import { AppService } from '../../service/app.service';
 import { AuthService } from '../../service/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -16,9 +17,15 @@ export class SignupComponent implements OnInit {
   ];
 
   user = {
-    userName: '', password: '', firstName: '', lastName: '',
-    contactNumber: '', linedinUrl: '', yearsOfExperience: '', role: '', roles: []
+    userName: null, password: null, repassword: null, firstName: null, lastName: null,
+    contactNumber: null, linedinUrl: null, yearsOfExperience: null, role: null, roles: []
   };
+
+  userName = new FormControl('', [Validators.required, Validators.email]);
+  firstName = new FormControl('', [Validators.required]);
+  lastName = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
+  repassword = new FormControl('', [Validators.required]);
 
   constructor(private app: AppService, private auth: AuthService, private http: HttpClient, private router: Router) { }
 
@@ -26,9 +33,15 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    // if (this.user.role) {
-    //   this.user.roles.push({role: this.user.role});
-    // }
+    if (this.user.password !== this.user.repassword) {
+      //repasswordValidation
+      this.repassword.setErrors({'Re password not equals password': true});
+      return;
+    }
+    if (!this.user.userName || !this.user.password || !this.user.repassword || !this.user.firstName
+      || !this.user.lastName) {
+      return;
+    }
     this.app.signup(this.user).subscribe(
       res => {
         if (res) {

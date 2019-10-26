@@ -10,12 +10,7 @@
     <a mat-button routerLink="admin/user">Admin - User</a>
     <a mat-button routerLink="admin/tech">Admin - Technology/Fee Frequency</a>
 </mat-toolbar>
-<hr>
 <div class="container">
-    <div [hidden]="!authenticated()">
-        <p>The ID is {{userName}}</p>
-        <p>The content is {{greeting}}</p>
-    </div>
     <div [hidden]="!signupSuccess">
         <p>Signup success, please use your account to login:</p>
     </div>
@@ -24,15 +19,6 @@
     </div>
     <div [hidden]="!signupFailed">
         <p>Signup failed, unknow issue, please try again later or contact administrator.</p>
-    </div>
-    <div [hidden]="authenticated()">
-        <p><a href="/login">Login to see your greeting</a></p>
-    </div>
-    <div [hidden]="authenticated()">
-        <p><a href="/signup">Sign up</a></p>
-    </div>
-    <div [hidden]="!authenticated()">
-        <p><button on-click="logout()">Login out</button>
     </div>
 </div>
 <hr>

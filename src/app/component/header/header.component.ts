@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppService } from '../../service/app.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +11,31 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
+  userName;
+
+  constructor(private app: AppService, private auth: AuthService, private http: HttpClient, private router: Router) {
   }
   ngOnInit() {
+    if (this.auth.isLogin()) {
+      this.userName = localStorage.getItem('userName');
+    }
   }
+
   logout() {
-    this.http.post('logout', {}).pipe(finalize(() => {
-      localStorage.removeItem('tokenPayload');
-      localStorage.removeItem('access_token');
-      this.router.navigateByUrl('/login');
-    })).subscribe();
+    localStorage.removeItem('tokenPayload');
+    localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
+  }
+
+  login() {
+    this.router.navigate(['login']);
+  }
+
+  signup() {
+    this.router.navigate(['signup']);
+  }
+
+  authenticated() {
+    return this.auth.isLogin();
   }
 }

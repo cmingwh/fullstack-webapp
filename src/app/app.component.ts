@@ -11,13 +11,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'myapp';
-  userName;
-  greeting;
   signupSuccess = false;
   userExists = false;
   signupFailed = false;
 
-  constructor(private app: AppService, private auth: AuthService, private http: HttpClient,
+  constructor(private app: AppService, private http: HttpClient,
               private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
@@ -34,27 +32,6 @@ export class AppComponent implements OnInit {
         this.signupFailed = true;
       }
     });
-
-    if (this.auth.isLogin()) {
-      this.userName = localStorage.getItem('userName');
-      this.app.greeting().subscribe(
-        res => this.greeting = res,
-        error => {
-          this.greeting = error;
-        }
-      );
-    } else {
-      // this.router.navigate(['login']);
-    }
   }
-
-  logout() {
-    localStorage.removeItem('tokenPayload');
-    localStorage.removeItem('access_token');
-    this.router.navigate(['login']);
-  }
-
-  authenticated() {
-    return this.auth.isLogin();
-  }
+  
 }
