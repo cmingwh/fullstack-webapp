@@ -4,5 +4,14 @@
   },
   "/resource": {
     "target": "http://localhost:8888"
+  },
+  "/user": {
+    "target": "http://localhost:8888"
+  },
+  "/training": {
+    "target": "http://localhost:8888"
+  },
+  "/payment": {
+    "target": "http://localhost:8888"
   }
 }

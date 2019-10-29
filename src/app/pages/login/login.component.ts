@@ -31,6 +31,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userName', tokenPayload.sub);
           localStorage.setItem('expirationDate', tokenPayload.exp);
           // const expirationDate = helper.getTokenExpirationDate(res.token);
+          this.app.getMyInfo().subscribe(res => {
+            return res;
+          });
           this.router.navigate(['search']);
         } else {
           this.router.navigate(['login']);

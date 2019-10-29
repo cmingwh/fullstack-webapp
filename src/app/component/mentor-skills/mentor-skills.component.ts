@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../../service/app.service';
 
 @Component({
   selector: 'app-mentor-skills',
@@ -6,15 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mentor-skills.component.css']
 })
 export class MentorSkillsComponent implements OnInit {
-  techs = [
-    {value: 'Spring', viewValue: 'Spring'},
-    {value: 'Angular', viewValue: 'Angular'},
-    {value: 'React', viewValue: 'React'}
-  ];
+  techs = [];
 
-  constructor() { }
+  constructor(private app: AppService) { }
 
   ngOnInit() {
+    this.app.getAllSkills().subscribe(
+      res => {
+        if (res) {
+          if (res.error || res.message) {
+            console.log(res);
+          } else {
+            this.techs = res;
+          }
+        }
+      },
+      error => {
+        console.log('error:', error);
+      }
+    );
   }
 
 }

@@ -1,7 +1,7 @@
 <mat-form-field>
     <mat-select placeholder="Technology">
-        <mat-option *ngFor="let tech of techs" [value]="tech.value">
-            {{tech.viewValue}}
+        <mat-option *ngFor="let tech of techs" [value]="tech.skillId">
+            {{tech.name}}
         </mat-option>
     </mat-select>
 </mat-form-field>

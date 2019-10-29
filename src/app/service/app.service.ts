@@ -11,10 +11,6 @@ export class AppService {
   }
 
   authenticate(credentials): Observable<any> {
-    // const vheaders = new HttpHeaders(credentials ? {
-    //     Authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    // } : {});
-
     return this.http.post('/api/login', credentials).pipe(
       map(res => {
         return res;
@@ -36,11 +32,10 @@ export class AppService {
     );
   }
 
-  greeting(): Observable<any> {
-    // const token = localStorage.getItem('access_token');
-    // const header = new HttpHeaders();
-    // header.append('Authorization', 'Bearer ' + token);
-    return this.http.get('/resource').pipe(
+  saveMentor(user): Observable<any> {
+    const accessToken = localStorage.getItem('access_token');
+    const vheaders = new HttpHeaders(accessToken ? { Authorization: 'Basic ' + accessToken } : {});
+    return this.http.post('/user/info/saveMentor', user, { headers: vheaders }).pipe(
       map(res => {
         return res;
       }),
@@ -49,4 +44,31 @@ export class AppService {
       })
     );
   }
+
+  getAllSkills(): Observable<any> {
+    return this.http.get('/resource/skill/findAll').pipe(
+      map(res => {
+        return res;
+      }),
+      catchError((error: any) => {
+        return of(error);
+      })
+    );
+  }
+
+  getMyInfo(): Observable<any> {
+    const accessToken = localStorage.getItem('access_token');
+    const vheaders = new HttpHeaders(accessToken ? { Authorization: 'Basic ' + accessToken } : {});
+    return this.http.get('/user/info', { headers: vheaders }).pipe(
+      map(res => {
+        const obj = JSON.stringify(res);
+        localStorage.setItem('userInfo', obj);
+        return true;
+      }),
+      catchError((error: any) => {
+        return of(error);
+      })
+    );
+  }
+
 }
