@@ -37,24 +37,6 @@
                 </mat-form-field>
             </section>
             <section>
-                <mat-form-field>
-                    <mat-select placeholder="Choose start time">
-                        <mat-option *ngFor="let time of times" [value]="time.value">
-                            {{time.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </section>
-            <section>
-                <mat-form-field>
-                    <mat-select placeholder="Choose end time">
-                        <mat-option *ngFor="let time of times" [value]="time.value">
-                            {{time.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </section>
-            <section>
                 <mat-form-field class="form-full-width">
                     <input matInput type="text" class="form-control" placeholder="Facilities provided" name="facilities"
                         [(ngModel)]="mentor.facilities">

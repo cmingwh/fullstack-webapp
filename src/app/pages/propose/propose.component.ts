@@ -5,7 +5,7 @@ export interface TrainElement {
   name: string;
   rating: number;
   completed: number;
-  userId: string;
+  userName: string;
 }
 
 @Component({

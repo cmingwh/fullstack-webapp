@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class AdminUserComponent implements OnInit {
   
   dataSource = [
-    {userId: 'Paris@test.com', userName: 'Paris', role: 'trainee', status: 'unblock', action: ''},
-    {userId: 'Neo@test.com', userName: 'Neo', role: 'mentor', status: 'unblock', action: ''}
+    {userName: 'Paris', role: 'trainee', status: 'unblock', action: ''},
+    {userName: 'Neo', role: 'mentor', status: 'unblock', action: ''}
   ];
 
-  displayedColumns: string[] = ['userId', 'userName', 'role', 'status', 'action'];
+  displayedColumns: string[] = ['userName', 'role', 'status', 'action'];
 
   constructor() { }
 

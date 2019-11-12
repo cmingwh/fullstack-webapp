@@ -8,6 +8,7 @@ import { AppService } from '../../service/app.service';
 })
 export class MentorSkillsComponent implements OnInit {
   techs = [];
+  selectedSkill;
 
   constructor(private app: AppService) { }
 

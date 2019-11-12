@@ -14,6 +14,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TrainingSearchComponent } from './pages/training-search/training-search.component';
 import { MentorTrainingsComponent } from './pages/mentor-trainings/mentor-trainings.component';
+import { MentorCalendarComponent } from './pages/mentor-calendar/mentor-calendar.component';
 import { UserTrainingsComponent } from './pages/user-trainings/user-trainings.component';
 import { HeaderComponent } from './component/header/header.component';
 import { ProposeComponent } from './pages/propose/propose.component';
@@ -26,7 +27,7 @@ import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHeaders, HttpHandle
 import { AppService } from './service/app.service';
 import { AuthService } from './service/auth.service';
 import { AuthGuard } from './service/auth.guard';
-import { MentorCalendarComponent } from './component/mentor-calendar/mentor-calendar.component';
+import { CalendarComponent } from './component/calendar/calendar.component';
 import { MentorSkillsComponent } from './component/mentor-skills/mentor-skills.component';
 
 @Injectable()
@@ -71,6 +72,7 @@ export class XhrInterceptor implements HttpInterceptor {
     AdminTechFeeComponent,
     MentorCalendarComponent,
     MentorSkillsComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
