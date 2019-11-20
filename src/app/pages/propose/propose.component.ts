@@ -18,7 +18,7 @@ export interface TrainElement {
   styleUrls: ['./propose.component.css']
 })
 export class ProposeComponent implements OnInit {
-  propose = {userName: '', description: '', calendarId: null, skillId: null, };
+  propose = {mentorId: '', applyReason: '', calendarId: null, skillId: null, userId: ''};
 
   constructor(
     public dialogRef: MatDialogRef<ProposeComponent>,
@@ -31,12 +31,12 @@ export class ProposeComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.isLogin()) {
-      this.propose.userName = localStorage.getItem('userName');
+      this.propose.userId = localStorage.getItem('userId');
     }
   }
 
   sendPropose() {
-    if (this.propose.userName && this.propose.description) {
+    if (this.propose.userId && this.propose.applyReason) {
       this.propose.calendarId = this.data.calendarId;
       this.propose.skillId = this.data.skillId;
       this.app.sendPropose(this.propose).subscribe(
