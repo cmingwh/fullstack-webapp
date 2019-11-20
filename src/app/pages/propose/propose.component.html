@@ -1,20 +1,19 @@
 <form class="form-container">
-    <h1 mat-dialog-title>Hi {{data.name}}</h1>
+    <h1 mat-dialog-title>Hi {{propose.userName}}</h1>
     <div mat-dialog-content>
-        <p>Please input you propose request?</p>
+        <p>Please input you propose request:</p>
         <div class="dialog-container">
             <mat-form-field>
-                <input matInput placeholder="Input" [(ngModel)]="data.userName">
-                <mat-icon matSuffix>mode_edit</mat-icon>
+                <input matInput placeholder="User Name" readonly name="userName" [(ngModel)]="propose.userName">
             </mat-form-field>
 
             <mat-form-field>
-                <textarea matInput placeholder="Description"></textarea>
+                <textarea matInput placeholder="Description" name="description" [(ngModel)]="propose.description"></textarea>
             </mat-form-field>
         </div>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="onNoClick()">Cancel</button>
-        <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Submit</button>
+        <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial (click)="sendPropose()">Submit</button>
     </div>
 </form>

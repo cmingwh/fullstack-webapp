@@ -226,5 +226,15 @@ export class AppService {
       })
     );
   }
-  
+
+  sendPropose(propose): Observable<any> {
+    return this.http.post('/training/train/propose', propose).pipe(
+      map(res => {
+        return res;
+      }),
+      catchError((error: any) => {
+        return of(error);
+      })
+    );
+  }
 }

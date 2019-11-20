@@ -4,6 +4,7 @@ import { ProposeComponent } from '../propose/propose.component';
 import { MentorSkillsComponent } from '../../component/mentor-skills/mentor-skills.component';
 import { CalendarComponent } from '../../component/calendar/calendar.component';
 import { AppService } from '../../service/app.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-training-search',
@@ -37,10 +38,15 @@ export class TrainingSearchComponent implements OnInit {
   }
 
   search() {
-    if (this.selSkills.selectedSkill && this.selCalendar.startDate && this.selCalendar.startTime && this.selCalendar.endTime) {
+    if (this.selSkills.selectedSkill && this.selCalendar.searchData.startDate &&
+       this.selCalendar.searchData.startTime && this.selCalendar.searchData.endTime) {
+      const startDate = moment(this.selCalendar.searchData.startDate).format('YYYY-MM-DD');
       const calendar = {
-        skillId: this.selSkills.selectedSkill, startDate: this.selCalendar.startDate,
-        startTime: this.selCalendar.startTime, endTime: this.selCalendar.endTime, status: 'new'
+        skillId: this.selSkills.selectedSkill,
+        startDate: startDate,
+        startTime: this.selCalendar.searchData.startTime,
+        endTime: this.selCalendar.searchData.endTime,
+        status: 'new'
       };
       this.app.searchCalendar(calendar).subscribe(
         res => {
